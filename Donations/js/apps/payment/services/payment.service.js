@@ -8,6 +8,7 @@ function paymentServ($q, PaymentRepository, DonationModel){
 	return {
 
 		tabs: [],
+		currentTab: 0,
 		cardPatterns: {
 			Visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
 			MasterCard: /^(?:5[1-5][0-9]{14})$/,
@@ -19,39 +20,65 @@ function paymentServ($q, PaymentRepository, DonationModel){
 		countries: [],
 		states: [],
 		agencies: {},
+
+		setTabs: setTabs,
+		setPaymentInformation: setPaymentInformation,
+		setCreditCardInformation: setCreditCardInformation,
+		setAddressInformation: setAddressInformation,
+		setCharity: setCharity,
+
+		getPaymentOptions: getPaymentOptions,
+		getCountries: getCountries,
+		getStates: getStates,
+		getAgencies: getAgencies,
+		sendDonation: sendDonation,
+		getCurrentTab: getCurrentTab
 		
 	};
 
-
+	//Setters
 	function setTabs(){
 		this.tabs.push({
-				state: 'payment.type',
-				step: 1,
-				title: this.paymentOptions.PaymentTypeLabel
-			},
-			{
-				state: 'payment.creditCard',
-				step: 2,
-				title: this.paymentOptions.PaymentTypeLabel + ' Information',
-			},
-			{
-				state: 'payment.country',
-				step: 3,
-				title: this.paymentOptions.PaymentTypeLabel + ' Billing address'
-			},
-			{
-				state: 'payment.agency',
-				step: 4,
-				title: this.agencies.PanelTitle
-		
-			},
-			{
-				state: 'payment.preview',
-				step: 5,
-				title: 'Donation Preview'
-			});
+			state: 'payment.type',
+			step: 1,
+			title: this.paymentOptions.PaymentTypeLabel
+		},{
+			state: 'payment.creditCard',
+			step: 2,
+			title: this.paymentOptions.PaymentTypeLabel + ' Information',
+		},{
+			state: 'payment.country',
+			step: 3,
+			title: this.paymentOptions.PaymentTypeLabel + ' Billing address'
+		},{
+			state: 'payment.agency',
+			step: 4,
+			title: this.agencies.PanelTitle
+	
+		},{
+			state: 'payment.preview',
+			step: 5,
+			title: 'Donation Preview'
+		});
+	};
+
+	function setPaymentInformation(type, amount, frequency){
+		DonationModel.setPayment(type, amount, frequency);
+	};
+
+	function setCreditCardInformation(info){//credit card form
+		DonationModel.setCreditCard(info);
+	};
+
+	function setAddressInformation(address){//countries form
+		DonationModel.setAddress(address);
+	};
+
+	function setCharity(charity){
+		DonationModel.setCharity(charity);
 	}
 
+	//Getters
 	function getPaymentOptions(){
 		return PaymentRepository.getPaymentOptions()
 		.then(function(data){
@@ -132,5 +159,12 @@ function paymentServ($q, PaymentRepository, DonationModel){
 		.then(function(response){
 			return response;
 		})
+	};
+
+	function getCurrentTab(){
+		return this.currentTab;
 	}
+
+	//Actions
+
 }

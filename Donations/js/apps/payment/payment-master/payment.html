@@ -6,13 +6,14 @@
         <div class="wizard">
             <uib-tabset active="payment.currentStep">
                 <uib-tab ng-repeat="tab in payment.tabs" index="tab.step" heading="{{tab.title}}" disable="true">
+
                     <div uib-alert ng-class="'alert-' + payment.alertClass" ng-style="{ 'display': payment.alertDisplay}" close="payment.alertDisplay = 'none'">{{payment.alertMessage}} </div>
                     
                     <ui-view></ui-view>
                 </uib-tab>
             </uib-tabset>
             <ul class="list-inline pull-right" style="margin-top: 40px">
-                <li><button ng-disabled="payment.currentStep <= 1" type="button" class="btn btn-default" ng-click="payment.gotoState(payment.currentStep - 1, false);">Prev</button></li>
+                <li><button ng-disabled="payment.currentStep <= 1" type="button" class="btn btn-default" ng-click="payment.goToPrevState(payment.currentStep - 1, false);">Prev</button></li>
                 <li><button ng-disabled="payment.currentStep >= payment.tabs.length" type="button" class="btn btn-default" ng-style="{'display': payment.NextDisplay}" ng-click="payment.gotoState(payment.currentStep + 1, true);">Next</button></li>
                 <li><button type="button" class="btn btn-primary" ng-style="{'display': payment.FinishDisplay}" ng-click="payment.setPledge();">Send</button></li>                    
             </ul>                        
