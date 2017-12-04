@@ -1,0 +1,15 @@
+<div>
+	<form class="form" name="payment.paymentForm" novalidate>
+		<label>Payment Amount</label><br>
+		<div ng-repeat="option in payment.paymentOptions">
+		<label for="paymentOp">{{option}}</label><input type="radio" name="paymentOp" value="{{option}}" ng-model="payment.paymentInformation.amount" ng-required="true"></input><br>
+		</div>
+		<label for="anonimus">Anonimus</label><input type="checkbox" name="anonimus" ng-model="payment.paymentInformation.anonimus"></input><br>
+		<label for="last">Payemnt Frequencies</label><select name="frequency" ng-model="payment.paymentInformation.frequency" ng-options="frequency for frequency in payment.paymentFrequencies">
+			<option value="{{frequency}}" selected="selected">{{frequency}}</option>
+		</select><br>
+
+		<button type="button" ng-click="payment.openModal()">View details</button>
+		<ui-view></ui-view>
+	</form>
+</div>

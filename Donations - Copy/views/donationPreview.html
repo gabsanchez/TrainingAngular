@@ -1,0 +1,16 @@
+<form>
+	<ul class="list-group">
+		<li class="list-group-item"><label style="font-weight: bold">Status</label><label style="padding-left: 7px"></label> {{ payment.status}} </li>
+		<li class="list-group-item"><label style="font-weight: bold">Payment Type</label><label style="padding-left: 7px"></label> Credit Card </li>
+		<li class="list-group-item"><label style="font-weight: bold">Pledge</label><label style="padding-left: 7px"></label>  {{payment.amount}}   </li>
+		<li class="list-group-item"><label style="font-weight: bold">Payment Details</label><label style="padding-left: 7px"></label> Billed on {{payment.today | date: 'MM/dd/yyyy h:mma'}}</li>
+		<li class="list-group-item"><label style="font-weight: bold">Total Annual Amount</label><label style="padding-left: 7px"></label> {{payment.annual}} </li>
+		<li class="list-group-item"><label style="font-weight: bold">Charity Details</label><label style="padding-left: 7px"></label>{{payment.selectedCharity.City}}, {{payment.selectedCharity.Address1}}, {{payment.selectedCharity.Address2}} </li>
+	</ul>
+</form>
+<!--<ul class="list-inline pull-right">
+
+	<li><button ng-disabled="payment.currentStep <= 1" type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.gotoState('payment.agency');">Prev</button></li>
+    <li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.setPledge()">Finish</button></li>
+    
+</ul>-->

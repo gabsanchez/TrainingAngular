@@ -1,0 +1,58 @@
+
+<p style="margin-top: 20px">{{payment.paymentInstructions}}</p>
+<p>{{payment.paymentQuestion}}</p>
+
+<form name="payment.amountRadios">
+    <div class="container">
+        <div class="row">
+            <div class="labels" ng-repeat="option in payment.paymentOptions">
+                <div ng-if="option.Amount === -7.922816251426434e+28">
+                    <div class="col-lg">
+                        <input type="radio" name="option" id="option{{$index}}" >Other<input type="number" name="other" ng-model="payment.amount"></input></input>
+                    </div>
+                </div>
+                <div ng-if="option.Amount !== -7.922816251426434e+28">
+                    <div class="col">
+                        <input type="radio" name="option" id="option{{$index}}" value="option.Amount" ng-model="payment.amount">{{option.AmountLabel}}</input>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<p>{{payment.frequencyInstructions}}</p>
+<form name="payment.freqRadios">
+    <div class="container">
+        <div class="row">
+            
+            <div class="labels" ng-repeat="frequency in payment.frequenciesList">
+                <div ng-if="frequency === 1">
+                    <div class="col">
+                        <input type="radio" name="freq" id="freq{{$index}}" value="1" ng-model="payment.frequency">One-time</input>
+                    </div>
+                </div>
+                <div ng-if="frequency === 2">
+                    <div class="col">
+                        <input type="radio" name="freq" id="freq{{$index}}" value="2" ng-model="payment.frequency">Monthly</input>
+                    </div>
+                </div>
+                <div ng-if="frequency === 3">
+                    <div class="col">
+                        <input type="radio" name="freq" id="freq{{$index}}" value="3" ng-model="payment.frequency">Quarterly</input>
+                    </div>
+                </div>
+                <div ng-if="frequency === 4">
+                    <div class="col">
+                        <input type="radio" name="freq" id="freq{{$index}}" value="4" ng-model="payment.frequency">Semi-annual</input>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!--<ul class="list-inline pull-right" >
+    <li><button ng-disabled="true" type="button" class="btn btn-default" style="margin-top: 40px">Prev</button></li>
+    <li><button ng-disabled="payment.currentStep >= payment.tabs.length" type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.setAnnual();">Next</button></li>
+    
+</ul>-->

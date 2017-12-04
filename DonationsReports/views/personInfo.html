@@ -1,0 +1,17 @@
+<div ng-controller="PersonInfoController as person">
+	<form class="form" name="person.infoForm" novalidate>
+		<label for="first">First Name</label><input type="text" name="first" ng-model="person.personalInformation.firstName"></input><br>
+		<label for="last">Last Name</label><input type="text" name="last" ng-model="person.personalInformation.lastName"></input><br>
+		<label for="birth">Birth Date</label><input type="date" name="birth" ng-model="person.personalInformation.birthDate"></input><br>
+
+		<button type="button" class="btn btn-default" ng-click="person.openModal()">Add Address</button><br>
+
+		<label for="country">Country</label><input type="text" value="{{person.address.country.CountryName}}" name="country" ng-readonly="true"></input><br>
+		<div ng-if="person.address.country.ISO === 'us'"><label for="state">State</label><input type="text" value="{{person.address.state.Name}}" name="state" ng-readonly="true"></input><br></div>
+		<div ng-if="person.address.country.ISO !== 'us'"><label for="province">Province</label><input type="text" value="{{person.address.province}}" name="province" ng-readonly="true"></input><br></div>
+		<label for="postal">Postal Code</label><input type="number" value="{{person.address.postalCode}}" name="postal" ng-readonly="true"></input><br>
+
+		<button type="button" ng-click="person.clearForm()">Clear</button>
+
+	</form>
+</div>

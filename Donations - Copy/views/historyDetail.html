@@ -1,0 +1,13 @@
+  
+	<div class="history-detail">
+		<ul class="list-group">
+			<li class="list-group-item"><label style="font-weight: bold">Date created</label><label style="padding-left: 7px"></label>{{historyDetail.donation.date | date: 'MM/dd/yyyy h:mma'}}</li>
+			<li class="list-group-item"><label style="font-weight: bold">Status</label><label style="padding-left: 7px"> </label> Submitted </li>
+			<li class="list-group-item"><label style="font-weight: bold">Payment Type</label><label style="padding-left: 7px"></label>{{historyDetail.donation.paymentType}}</li>
+			<li class="list-group-item"><label style="font-weight: bold">Pledge</label><label style="padding-left: 7px"></label>{{historyDetail.donation.pledge}}</li>
+			<li class="list-group-item"><label style="font-weight: bold">Total Annual Amount</label><label style="padding-left: 7px"></label>{{historyDetail.donation.total}}</li>
+			<li class="list-group-item"><label style="font-weight: bold">Charity Details</label><label style="padding-left: 7px"></label>{{historyDetail.donation.selectedCharity}}</li>
+		</ul>
+
+		<button type="button" ng-click="historyDetail.ok()">Ok</button>
+	</div>

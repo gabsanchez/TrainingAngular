@@ -1,0 +1,4 @@
+<div ng-app="UIbootstrapExample" ng-controller="BootController as alertMaster">
+  <div uib-alert ng-repeat="alert in alertMaster.alerts" ng-class="'alert-' + alert.type" close="alertMaster.closeAlert($index)">{{alert.msg}}</div>
+  <button class="btn btn-default" ng-click="alertMaster.addAlert()">Add Alert</button>
+</div>

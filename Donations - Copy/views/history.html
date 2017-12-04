@@ -1,0 +1,15 @@
+<div ng-init="history.getGivingHistory()" block-ui="givingHistoryBlock">
+	<div style="float: right; padding: 20px 20px;">
+	    <a  ui-sref="login" ui-sref-active="active" type="button" class="btn btn-submit">Log Out</a>
+	</div>
+	<div class="history-header">
+		<h1>Thank you</h1>
+		<p>for making the world a better place</p>
+		<a href="" onclick="document.getElementById('history').style.display = 'block'">View details</a>
+	</div>
+	<div id="history" style="display: none">
+		 
+		<div ui-grid="history.historyGrid" ui-grid-pagination class="grid"="grid"></div>
+		<ui-view></ui-view>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+<div  block-ui="loginBlock">
+	<div class="log-in">
+		<img src="img/home_icon_donate_0.png">
+		<form ng-submit="login.logUser(login.campaign, login.username, login.password);">
+			<div class="form-group">
+		    <input type="username" class="form-control" id="campaign" placeholder="Campaign" ng-model="login.campaign"></input>
+		  </div>
+		  <div class="form-group">
+		    <input type="username" class="form-control" id="username" placeholder="Username" ng-model="login.username"></input>
+		  </div>
+		  <div class="form-group">
+		    <input type="password" class="form-control" id="pwd" placeholder="Password" ng-model="login.password"></input>
+		  </div>
+		  <div uib-alert ng-class="'alert-danger'" ng-style="{ 'display': login.alertDisplay}" close="login.alertDisplay = 'none'">{{login.alertMessage}}</div>
+		  <div class="login-button">
+		  	<button type="submit" class="btn btn-primary">Log In</button>
+		  </div>
+		</form>
+	</div>
+</div>

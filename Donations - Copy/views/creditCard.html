@@ -1,0 +1,38 @@
+
+<form name="payment.creditCardInputs" novalidate >
+    <ul class="list-group">
+        <li class="list-group-item">
+            <label>Card Type  </label>
+            <ui-select ng-model="payment.cardOption" name="cardTypes" ng-required="true">
+                <ui-select-match>
+                    <span ng-bind="payment.getCardType($select.selected)"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="cardType in payment.creditCardTypes">
+                    <span ng-bind="payment.getCardType(cardType)"></span>
+                </ui-select-choices>
+            </ui-select>
+        </li>
+       <li class="list-group-item">
+            <label for="creditCardNumber">Card Number</label>
+            <input type="number" id="creditCardNumber" name="cardInput" ng-required="true" ng-maxlength="16" ng-minlength="16" ng-model="payment.cardNumber" ></input>
+        </li>
+        <li class="list-group-item" for="verificationNumber">
+            <label>Card Verification Number</label>
+            <input type="number" id="verificationNumber" name="verifNumber" ng-required="true" ng-maxlength="3" ng-minlength="3" ng-model="payment.cardVerifNumber"></input>
+        </li>
+        <li class="list-group-item" for="cardName">
+            <label>Name on Card</label>
+            <input type="text" id="cardName" name="cardName" ng-model="payment.cardName" ng-pattern="/^\b([A-Z]{1}[a-z]{1,30}[- ]{0,1}|[A-Z]{1}[- \']{1}[A-Z]{0,1}[a-z]{1,30}[- ]{0,1}|[a-z]{1,2}[ -\']{1}[A-Z]{1}[a-z]{1,30}){2,5}$/" ng-required="true"></input>
+        </li>
+        <li class="list-group-item">
+          <label for="exp">Expiration Date </label>
+          <input type="month" name="exp" class="form-control" uib-datepicker-popup ng-model="payment.cardExpDate" is-open="payment.dtpPopup.opened" datepicker-options="payment.dateOptions" ng-required="true" close-text="Close" style="width: 80%"/>
+          <span>
+            <button type="button" class="btn btn-default" ng-click="payment.openDTP()"><i class="glyphicon glyphicon-calendar" ></i></button>
+          </span>
+        </li>
+
+
+        <li class="list-group-item" for="Email"><label>Email Adress  </label><input type="email" id="Email" ng-model="payment.email"></input></li>
+    </ul>
+</form>

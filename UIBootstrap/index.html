@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bootstrap Example</title>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="js/angular-ui-router.js"></script>
+    <script src="js/example.js"></script>
+    <script src="js/myController.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body ng-app="UIbootstrapExample">
+	<div ng-controller="BootController as tabMaster">
+		<uib-tabset active="active">
+			<uib-tab index="$index" ng-repeat="tab in tabMaster.tabs" ui-sref="Tab{{$index + 1}}" ui-sref-active="active" heading="{{tab.title}}" disable="tab.disabled">
+				<br>
+				<br>
+				<ui-view></ui-view>
+			</uib-tab>
+		</uib-tabset>	
+	</div>
+</body>
+</html>

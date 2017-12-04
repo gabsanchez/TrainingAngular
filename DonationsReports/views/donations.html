@@ -1,0 +1,25 @@
+<div ng-init="donations.getDonationsData()">
+
+	<select ng-model="donations.selectedAgency" ng-options="agency.name as agency.name for agency in donations.agencies">
+		<option value="" selected="selected">Select an option</option>
+	</select>
+
+	<button ng-click="donations.search()">Search</button>
+
+	<br>
+
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>Date</th>
+			<th>Campaign</th>
+			<th>Pledge</th>
+			<th>Charity</th>
+		</tr>
+		<tr ng-repeat="donation in donations.donationsList" ng-if="donation.DesignationList[0].Name === donations.agencyToSearch">
+			<th>{{donation.DateCreated | date: 'MM/dd/yyyy'}}</th>
+			<th>{{donation.CampaignName}}</th>
+			<th>{{donation.PaymentAmount}}</th>
+			<th>{{donations.agencyToSearch}}</th>
+		</tr>
+	</table>
+</div>

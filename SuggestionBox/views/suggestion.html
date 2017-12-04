@@ -1,0 +1,24 @@
+<div>
+	<h2 class="postTitle">{{suggestionController.post.postTitle}}</h2>
+	<div class="commentForm">
+ 		<form ng-submit="suggestionController.addComment(body); body = ''">
+			<h3> Submit your comment </h3>
+			<div class="form-group">
+			<input type="text" class="form-control" placeholder="Add your comment" ng-model="body" id="submit-comment"></input>
+			</div>
+			<button type="submit" class="btn btn-primary" onclick="document.getElementById('submit-comment').value = ''">Comment</button>
+		</form>
+	</div>
+</div>
+
+<div class="suggestion">
+	<div class="postComments" ng-repeat="comment in suggestionController.post.comments">
+		<p class="comment-body">{{comment.body}}</p>
+		<div class="comment-rating">
+			<p class="comment-upvotes" ng-click="suggestionController.upVoteComment(comment)">{{comment.upvotes}}</p>
+		</div> 
+	</div>
+	<form action="#!/">
+    	<input type="submit" class="btn btn-default" value="Go Back">
+	</form>
+</div>

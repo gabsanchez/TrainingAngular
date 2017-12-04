@@ -1,0 +1,13 @@
+<li class="list-group-item">
+	<label>State</label>
+	<ui-select name="states" ng-model="payment.stateProvince" ng-required="true">
+        <ui-select-match>
+            <span ng-bind="$select.selected.Name"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="state in payment.usStates | filter: $select.search">
+            <span ng-bind-html="state.Name | highlight: $select.search"></span>
+        </ui-select-choices>
+    </ui-select>
+</li>
+<li class="list-group-item"><label>Zip Code</label><input type="number" name="zip1" ng-maxlength="5" ng-minlength="5" ng-required="true" ng-model="payment.zip1"></input></li>
+<li class="list-group-item"><label>Zip Code Extension</label><input type="number" name="zip2" ng-maxlength="4" ng-minlength="4" ng-model="payment.zip2"></input></li>

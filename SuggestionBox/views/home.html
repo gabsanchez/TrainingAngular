@@ -1,0 +1,26 @@
+
+<h1 class="title"> {{ homeController.title }} </h1>
+<div>
+	<div class="suggestForm">
+		<form ng-submit="homeController.addSuggestion()" style="margin-top: 30px">
+			<h3> Submit your suggestion </h3>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Great ideas here" ng-model="homeController.postTitle"></input>
+			</div>
+			<button type="submit" class="btn btn-primary">Suggest</button>
+		</form>
+	</div>
+</div>
+	<div ng-repeat="post in homeController.posts | orderBy: '-upvotes'">
+		<div class="suggestions">
+			<h4 class="postTitle">{{post.postTitle}}</h4>
+			<div class="comments">
+				<a href="#!/suggestion/{{$index}}">Comments</a>
+			</div>
+			<div class="rating">
+				<p class="upvotes" ng-click="homeController.upVote(post)">{{post.upvotes}}</p> 
+			</div>
+		</div>
+	</div>
+
+

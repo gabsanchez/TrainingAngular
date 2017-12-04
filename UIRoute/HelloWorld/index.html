@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello world</title>
+	 <script src="js/lib/angular.min.js"></script>
+	 <script src="js/lib/angular-ui-router.js"></script>
+	 <script src="js/helloworld.js"></script>
+
+	 <style>.active { color: red; font-weight: bolder; }</style>
+
+</head>
+<body ng-app="helloworld">
+
+	<a ui-sref="hello" ui-sref-active="active">Hello</a>
+  	<a ui-sref="about" ui-sref-active="active">About</a>
+	<ui-view></ui-view>
+</body>
+</html>

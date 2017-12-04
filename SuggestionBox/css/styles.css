@@ -1,0 +1,105 @@
+body
+{
+	background-color: #F2F2F2;
+}
+.title
+{
+  font-family: 'Sofia';
+}
+h2
+{
+  font-family: 'Adamina';
+}
+h3, a
+{
+  font-family: 'Sofia';
+}
+h4 ,p
+{
+  font-family: 'Adamina';
+}
+.upvotes,
+.comment-upvotes
+{
+   background: #FA5858 ;
+ color: #fff;
+ cursor: pointer;
+ display: inline-block;
+ font-size: 30px;
+   line-height: 80px;
+   min-width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   text-align: center;
+   font-weight: 200;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+   transition: background 500ms;
+}
+.upvotes:hover,
+.comment-upvotes:hover 
+{
+ 	color: #F65A5B ;
+   background: rgba(246, 90, 91, 0.25);
+   transition: background 500ms;
+}
+.rating 
+{
+ text-align: right;
+ -webkit-user-select: none;
+    -moz-user-select: none;
+     -ms-user-select: none;
+ margin: 50px 75px 50px 50px;
+ padding-bottom: 20px;
+}
+.comment-rating 
+{
+ text-align: right;
+ -webkit-user-select: none;
+    -moz-user-select: none;
+     -ms-user-select: none;
+ margin: 50px 75px 50px 50px;
+ padding-bottom: 20px;
+}
+.main
+{
+
+ 	margin: 30px 75px -30px 80px;
+}
+.suggestions
+{
+	background-color: #FAFAFA ;
+	margin: auto;
+}
+.suggestions h4
+{
+	padding: 20px 0 0 25px;
+}
+.comments
+{
+	text-align: right;
+	margin: 0 62px 0 50px;
+}
+.comments a
+{
+  font-size: 24px;
+}
+.title
+{
+	text-align: center;
+	padding-bottom: 30px;
+}
+.suggestForm,
+.commentForm
+{
+  padding-bottom: 30px;
+}
+.postComments
+{
+  background-color: #FAFAFA ;
+  margin: auto;
+}
+.comment-body
+{
+  padding-top: 25px;
+  margin-left: 25px;
+}

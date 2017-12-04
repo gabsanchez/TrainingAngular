@@ -1,0 +1,11 @@
+
+<form>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="agency in payment.agencies"><input type="radio" name="agencies" id="agency{{$index}}" value="{{$index}}" ng-model="payment.selectedCharityIndex">{{agency.City}}, {{agency.Address1}}, {{agency.Address2}}</input></li>
+    </ul>
+</form>
+<!--<ul class="list-inline pull-right">
+	<li><button ng-disabled="payment.currentStep <= 1" type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.gotoState('payment.country');">Prev</button></li>
+    <li><button ng-disabled="payment.currentStep >= payment.tabs.length" type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.validateCharity();">Next</button></li>
+    
+</ul>-->

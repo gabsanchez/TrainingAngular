@@ -1,0 +1,13 @@
+<div ng-init="agencies.getAgencies()">
+	<h2>Agencies</h2>
+	<ul class="list-group">
+		<li class="list-group-item" ng-repeat="agency in agencies.parsedAgencies | orderBy: '-minDonation': agencies.order">
+			<p>{{agency.name}}</p>
+			<p style="text-align: right;">{{agency.minDonation}}</p>
+		</li>
+	</ul>
+	<select ng-model="agencies.sortOption" ng-options="sort as sort for sort in agencies.sorts">
+		<option value="{{$index}}" selected="selected">{{sort}}</option>
+	</select>
+	<button ng-click="agencies.sortList()">Sort</button>
+</div>

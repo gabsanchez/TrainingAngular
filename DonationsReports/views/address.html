@@ -1,0 +1,25 @@
+<div ng-init="personAddress.getData()">
+	<div class="modal-title">
+		<h3>Enter your adress</h3>
+	</div>
+	<div class="modal-body">
+		<form name="personAddress.addressForm" novalidate>
+			<label for="country">Country</label><select name="country" ng-model="personAddress.address.country" ng-options="country.CountryName for country in personAddress.countries">
+				<option value="{{$index}}" selected="selected">{{country.CountryName}}</option>
+			</select><br>
+
+
+			<div ng-if="personAddress.address.country.ISO === 'us'">
+				<label for="state">State</label><select name="state" ng-model="personAddress.address.state" ng-options="state.Name for state in personAddress.states">
+					<option value="{{$index}}" selected="selected">{{state.Name}}</option>
+				</select><br>
+			</div>
+			<div ng-if="personAddress.address.country.ISO !== 'us'">
+				<label for="provinceState">Province</label><input type="text" ng-model="personAddress.address.province" name="province" ng-required="true"></input><br>
+			</div>
+			<label for="postalCode">Postal Code</label><input type="text" name="postalCode" ng-model="personAddress.address.postalCode" ng-required="true" ng-maxlength="5" ng-minlength="5"></input><br>
+			<button type="button" ng-click="personAddress.ok()">Ok</button>
+			<button type="button" ng-click="personAddress.cancel()">Cancel</button>
+		</form>
+	</div>
+</div>

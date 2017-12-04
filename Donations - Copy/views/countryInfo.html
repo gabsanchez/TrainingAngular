@@ -1,0 +1,26 @@
+
+<form name="payment.billingInfo" novalidate> 
+    <ul class="list-group">
+        <li class="list-group-item">
+            <label>Country</label>
+            <ui-select name="countries" ng-model="payment.selectedCountry" ng-required="true">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.CountryName"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="country in payment.countries | filter: $select.search">
+                    <span ng-bind-html="country.CountryName | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+        </li>
+        <li class="list-group-item"><label for="adress1">Address 1</label><input type="text" name="address1" ng-required="true" ng-model="payment.address1" ></input></li>
+        <li class="list-group-item"><label for="adress1">Address 2</label><input type="text" name="address2" ng-model="payment.address2"></input></li></li>
+        <li class="list-group-item"><label for="cardName">City</label><input type="text" name="city" ng-required="true" ng-model="payment.city"></input></li>
+        
+            <ng-include src="payment.getStateOption(selectedCountry)"></ng-include>
+    </ul>
+</form>
+<!--<ul class="list-inline pull-right">
+    <li><button ng-disabled="payment.currentStep <= 1" type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.gotoState('payment.creditCard');">Prev</button></li>
+    <li><button ng-disabled="payment.currentStep >= payment.tabs.length" type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="payment.validateCountry();">Next</button></li>
+    
+</ul>-->

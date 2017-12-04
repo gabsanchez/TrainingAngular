@@ -1,0 +1,9 @@
+<div>
+	<ul class="list-group">
+		<li class="list-group-item"><label style="font-weight: bold">Amount</label><label style="padding-left: 7px"></label> {{ paymentDetail.paymentDetails.amount}} </li>
+		<li class="list-group-item"><label style="font-weight: bold">Anonimus</label><label style="padding-left: 7px"></label> {{ paymentDetail.paymentDetails.anonimus}}  </li>
+		<li class="list-group-item"><label style="font-weight: bold">Frequency</label><label style="padding-left: 7px"></label>  {{paymentDetail.paymentDetails.frequency}}   </li>
+	</ul>
+
+	<button type="button" ng-click="paymentDetail.ok()">Ok</button>
+</div>
