@@ -11,6 +11,7 @@ function paymentController($state, PaymentService, blockUI, growl){
 	vm.currentTab = PaymentService.getCurrentTab();
 	vm.goToPrevStep = goToPrevStep;
 	vm.goToNextStep = goToNextStep;
+	vm.displayFinish = displayFinish;
 
 	function goToPrevStep(){
 		PaymentService.currentTabIndex--;
@@ -21,4 +22,8 @@ function paymentController($state, PaymentService, blockUI, growl){
 		PaymentService.currentTabIndex++;
 		$state.go(vm.tabs[vm.currentTab].state);
 	};
+
+	function displayFinish(){
+		return currentTabIndex >= 4 ? 'block': 'none';
+	}
 }
