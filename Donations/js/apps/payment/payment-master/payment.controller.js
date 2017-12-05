@@ -1,29 +1,23 @@
 angular.module('Payment')
 .controller('PaymentController', paymentController);
 
-paymentController.$inject = ['$state', 'PaymentService', 'blockUI', 'growl'];
+paymentController.$inject = ['paymentData', 'agenciesData', '$state', 'PaymentService'];
 
-function paymentController($state, PaymentService, blockUI, growl){
+function paymentController(paymentData, agenciesData, $state, PaymentService){
 
 	var vm = this;
 
+	PaymentService.paymentOptions = paymentData;
+	PaymentService.agenciesInformation = agenciesData;
+
+	PaymentService.setTabs();
+
 	vm.tabs = PaymentService.tabs;
-	vm.currentTab = PaymentService.getCurrentTab();
-	vm.goToPrevStep = goToPrevStep;
-	vm.goToNextStep = goToNextStep;
-	vm.displayFinish = displayFinish;
+	vm.currentTab = PaymentService.currentTab;
 
-	function goToPrevStep(){
-		PaymentService.currentTabIndex--;
-		$state.go(vm.tabs[vm.currentTab].state);
-	};
+	vm.alertDisplay = PaymentService.getAlertDisplay();
+	vm.alertMessage = PaymentService.getAlertMessage();
 
-	function goToNextStep(){
-		PaymentService.currentTabIndex++;
-		$state.go(vm.tabs[vm.currentTab].state);
-	};
+	$state.go('payment.paymentType');
 
-	function displayFinish(){
-		return currentTabIndex >= 4 ? 'block': 'none';
-	}
 }

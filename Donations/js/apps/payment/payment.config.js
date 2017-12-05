@@ -8,7 +8,28 @@ function config($stateProvider, $urlRouterProvider){
 		name: 'payment',
 		url: '/payment',
 		templateUrl: 'js/apps/payment/payment-master/payment.html',
-		controller: 'PaymentController as payment'
+		controller: 'PaymentController as payment',
+		resolve: {
+			paymentData: function(PaymentService){
+				return PaymentService.getPaymentOptions()
+				.then(function(data){
+					return data;
+				})
+				.catch(function(err){
+					return err;
+				})
+			},
+
+			agenciesData: function(PaymentService){
+				return PaymentService.getAgencies()
+				.then(function(data){
+					return data;
+				})
+				.catch(function(err){
+					return err;
+				});
+			}
+		}
 	};
 
 	var paymentTypeState = {
@@ -29,7 +50,28 @@ function config($stateProvider, $urlRouterProvider){
 		name: 'payment.address',
 		url: '/address',
 		templateUrl: 'js/apps/payment/payment-country/countryInfo.html',
-		controller: 'AddressController as address'
+		controller: 'AddressController as address',
+		resolve: {
+			countriesData: function(PaymentService){
+				return PaymentService.getCountries()
+				.then(function(data){
+					return data;
+				})
+				.catch(function(err){
+					return err;
+				});
+			},
+
+			statesData: function(PaymentService){
+				return PaymentService.getStates()
+				.then(function(data){
+					return data;
+				})
+				.catch(function(err){
+					return err;
+				});
+			}
+		}
 	};
 
 	var charityState = {
@@ -53,5 +95,5 @@ function config($stateProvider, $urlRouterProvider){
 	$stateProvider.state(charityState);
 	$stateProvider.state(previewState);
 
-	$urlRouterProvider.otherwise('/payment/payment-type');
+	$urlRouterProvider.otherwise('/login');
 }

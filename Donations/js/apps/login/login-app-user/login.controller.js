@@ -31,6 +31,7 @@ function loginController($state, LoginService, blockUI, growl){
 			LoginService.authenticateDonor(campaign, username, password)
 			.then(function(){
 				growl.success("Welcome", {ttl: 3500});
+				$state.go('payment');
 			})
 			.catch(function(){
 				growl.error("Invalid credentials");

@@ -1,14 +1,16 @@
 angular.module('Payment')
-.service('PatmentService', paymentServ);
+.service('PaymentService', paymentServ);
 
-paymentServ.$inject = ['$q', 'PaymentRepository', 'DonationModel'];
+paymentServ.$inject = ['$q', 'PaymentRepository', 'AgenciesModel'];
 
-function paymentServ($q, PaymentRepository, DonationModel){
+function paymentServ($q, PaymentRepository, AgenciesModel){
 
 	return {
 
 		tabs: [],
-		currentTab: 0,
+		currentTab: {
+			value: 0
+		},
 		cardPatterns: {
 			Visa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/,
 			MasterCard: /^(?:5[1-5][0-9]{14})$/,
@@ -19,7 +21,13 @@ function paymentServ($q, PaymentRepository, DonationModel){
 		paymentOptions: {},
 		countries: [],
 		states: [],
-		agencies: {},
+		agenciesInformation: {},
+
+		donnationData: {
+			address: {},
+			charity: {}
+		},
+		annualAmount: 0,
 
 		setTabs: setTabs,
 		setPaymentInformation: setPaymentInformation,
@@ -32,9 +40,20 @@ function paymentServ($q, PaymentRepository, DonationModel){
 		getStates: getStates,
 		getAgencies: getAgencies,
 		sendDonation: sendDonation,
-		getCurrentTab: getCurrentTab
+		getCurrentTab: getCurrentTab,
+
+		alertDisplay: 'none',
+		alertMessage: '',
+
+		getAlertDisplay: getAlertDisplay,
+		getAlertMessage: getAlertMessage,
+
+		getToday: getToday
 		
 	};
+
+	//Agencies module
+	
 
 	//Setters
 	function setTabs(){
@@ -53,7 +72,7 @@ function paymentServ($q, PaymentRepository, DonationModel){
 		},{
 			state: 'payment.agency',
 			step: 4,
-			title: this.agencies.PanelTitle
+			title: this.agenciesInformation.PanelTitle
 	
 		},{
 			state: 'payment.preview',
@@ -62,80 +81,96 @@ function paymentServ($q, PaymentRepository, DonationModel){
 		});
 	};
 
+
 	function setPaymentInformation(type, amount, frequency){
-		DonationModel.setPayment(type, amount, frequency);
+
+		this.donnationData.paymentType = type;
+		this.donnationData.paymentAmount = amount;
+		this.donnationData.paymentFrequency = frequency;
 	};
 
-	function setCreditCardInformation(info){//credit card form
-		DonationModel.setCreditCard(info);
+	function setCreditCardInformation(type, cardNumber, cardVerif, cardName, expDate, email){//credit card form
+		this.donnationData.cardType = type;
+		this.donnationData.cardNumber = cardNumber;
+		this.donnationData.cardVerificationNumber = cardVerif;
+		this.donnationData.cardName = cardName;
+		this.donnationData.cardExpirationDate = expDate;
+		this.donnationData.email = email;
 	};
 
 	function setAddressInformation(address){//countries form
-		DonationModel.setAddress(address);
+		this.donnationData.address = address;
 	};
 
 	function setCharity(charity){
-		DonationModel.setCharity(charity);
+		this.donnationData.charity = angular.copy(charity);
 	}
 
 	//Getters
 	function getPaymentOptions(){
 		return PaymentRepository.getPaymentOptions()
 		.then(function(data){
-			this.paymentOptions = data;
-		})
+			//this.paymentOptions = data;
+			return data;
+		});
 	};
 
 	function getCountries(){
 		return PaymentRepository.getCountries()
 		.then(function(data){
-			this.countries = data;
+			return data;
 		})
 	};
 
 	function getStates(){
 		return PaymentRepository.getStates()
 		.then(function(data){
-			this.states = data;
+			return data;
 		})
 	};
 
 	function getAgencies(){
-		return PaymentRepository.getAgencies()
-		.then(function(data){
-			this.agencies = data;
-		})
+		var agenciesModel = new AgenciesModel();
+		if(agenciesModel.data.PanelTitle && agenciesModel.data.Agencies){
+			return agenciesModel.getData();
+		}
+		else{
+			return PaymentRepository.getAgencies()
+			.then(function(data){
+				agenciesModel.setData(data);
+				return agenciesModel.getData();
+			});
+		}
+		
 	};
 
 	function sendDonation(){
-
-		var model = DonationModel.getDonationModel();
 
 		var data = {
 			"CAddOnList": [], //None
             "AddonTotalList": [], //None
             "AddOnTotalValue": 0, //No value
             "CampaignId": "c4f85b7e-54eb-4194-bcb1-b0a072217e09",
-            "CustomField1": model.creditCard.type,
-            "CustomField2": model.creditCard.name,
-            "CustomField3": model.creditCard.number,
-            "CustomField4": model.creditCard.expirationDate,
-            "CustomField5": model.creditCard.email,
-            "CustomField6": model.creditCard.verificationNumber,
+            "CustomField1": this.donnationData.cardType,
+            "CustomField2": this.donnationData.cardName,
+            "CustomField3": this.donnationData.cardNumber,
+            "CustomField4": this.donnationData.cardExpirationDate,
+            "CustomField5": this.donnationData.email,
+            "CustomField6": this.donnationData.cardVerificationNumber,
             "DesignationAmountType": 1,
             "DesignationList": [{
-                "DesignateableEntityType": model.charity.DesignationEntityType,
-                "DesignationAmount": model.amount,
+                "DesignateableEntityType": this.donnationData.charity.DesignationEntityType,
+                "DesignationAmount": this.donnationData.paymentAmount,
                 "DisplayName": "",
-                "EIN": model.charity.EIN,
-                "EntityId": model.charity.EntityId,
+                "EIN":  this.donnationData.charity.EIN,
+                "EntityId":  this.donnationData.charity.EntityId,
                 "IsDefaultPanelItem": false,
                 "IsRejected": false,
-                "MinimumDonation": model.charity.MinimumDonation,
-                "MinimumTotalDonationForDesignation": model.charity.MinimumTotalDonationForDesignation,
-                "Name": model.charity.Name,
-                "OrganizationNumber": model.charity.ProfileOrganizationNumber,
-                "StandardAccountCode": model.charity.StandardAccountCode
+                "MinimumDonation":  this.donnationData.charity.MinimumDonation,
+                "MinimumTotalDonationForDesignation":  this.donnationData.charity.MinimumTotalDonationForDesignation,
+                "Name":  this.donnationData.charity.Name,
+                "OrganizationNumber":  this.donnationData.charity.ProfileOrganizationNumber,
+                "StandardAccountCode":  this.donnationData.charity.StandardAccountCode
             }],
             "DesignationWriteInList": [], //None
             "DonationSourceType": 9,
@@ -145,17 +180,17 @@ function paymentServ($q, PaymentRepository, DonationModel){
             "IsImpersonated": false,
             "NegativeDesignation": "", //None
             "Payment": { /*Empty because cash doesn't accept billing data*/ },
-            "PaymentAmount": model.amount,
+            "PaymentAmount": this.donnationData.paymentAmount,
             "PaymentAmountType": 1,
             "PaymentIncreaseAmount": 0,
             "PaymentIncreaseAmountType": 1,
-            "PaymentTotalValue": model.amount,
+            "PaymentTotalValue": this.donnationData.paymentAmount,
             "PaymentType": 5,
             "PledgeStatusType": 0,
-            "TotalValue": model.amount,
+            "TotalValue": this.donnationData.paymentAmount,
 		};
 
-		PaymentRepository.sendDonation(data)
+		return PaymentRepository.sendDonation(data)
 		.then(function(response){
 			return response;
 		})
@@ -166,5 +201,22 @@ function paymentServ($q, PaymentRepository, DonationModel){
 	}
 
 	//Actions
+	function getAlertDisplay(){
+		return this.alertDisplay;
+	};
+
+	function getAlertMessage(){
+		return this.alertMessage;
+	};
+
+	function getToday(){
+		var today = new Date();
+		var month = today.getMonth() + 1;
+		var year = today.getFullYear();
+		if(month < 10){
+		    month = '0' + month;
+		}
+		return year + "-" + month;
+	};
 
 }

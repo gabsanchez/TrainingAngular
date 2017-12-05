@@ -1,0 +1,16 @@
+<form>
+	<ul class="list-group">
+		<li class="list-group-item"><label style="font-weight: bold">Status</label><label style="padding-left: 7px"></label> Pending </li>
+		<li class="list-group-item"><label style="font-weight: bold">Payment Type</label><label style="padding-left: 7px"></label> Credit Card </li>
+		<li class="list-group-item"><label style="font-weight: bold">Pledge</label><label style="padding-left: 7px"></label>  {{preview.donnation.paymentAmount}}   </li>
+		<li class="list-group-item"><label style="font-weight: bold">Payment Details</label><label style="padding-left: 7px"></label> Billed on {{preview.today | date: 'MM/dd/yyyy h:mma'}}</li>
+		<li class="list-group-item"><label style="font-weight: bold">Total Annual Amount</label><label style="padding-left: 7px"></label> {{preview.donnation.annualAmount}} </li>
+		<li class="list-group-item"><label style="font-weight: bold">Charity Details</label><label style="padding-left: 7px"></label>{{preview.donnation.charity.Name}}</li>
+	</ul>
+</form>
+<ul class="list-inline pull-right">
+
+	<li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="$state.go('payment.agency');">Prev</button></li>
+    <li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="preview.setPledge()">Finish</button></li>
+    
+</ul>

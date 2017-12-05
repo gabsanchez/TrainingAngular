@@ -97,9 +97,5 @@ function historyController(connection, $location, $uibModal, $state, blockUI, gr
 	function openModal(index){
 		connection.selectedDonation = angular.copy(vm.donations[index]);
 		$state.go('history.historyDetail');
-		/*var modalInstance = $uibModal.open({
-			templateUrl: 'views/historyDetail.html',
-			controller: 'HistoryDetailController as historyDetail'
-		})*/
 	}
 }

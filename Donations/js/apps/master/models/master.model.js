@@ -29,7 +29,6 @@ function donationModel(){
 		};
 
 		this.getDonationModel = getDonationModel;
-		this.setCredentials = setCredentials;
 		this.setPayment = setPayment;
 		this.setCreditCard = setCreditCard;
 		this.setAddress = setAddress;

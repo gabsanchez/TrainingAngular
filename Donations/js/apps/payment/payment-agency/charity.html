@@ -1,0 +1,11 @@
+<div uib-alert ng-class="'alert-danger'" ng-style="{ 'display': agency.alertDisplay}" close="agency.alertDisplay = 'none'">{{agency.alertMessage}} </div>
+
+<form>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="charity in agency.agencies"><input type="radio" name="agencies" id="agency{{$index}}" value="{{$index}}" ng-model="agency.selectedCharityIndex">{{charity.City}}, {{charity.Address1}}, {{charity.Address2}}</input></li>
+    </ul>
+</form>
+<ul class="list-inline pull-right">
+	<li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="$state.go(payment.address)">Prev</button></li>
+    <li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="agency.validateCharity();">Next</button></li>    
+</ul>

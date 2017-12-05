@@ -1,0 +1,27 @@
+<div uib-alert ng-class="'alert-danger'" ng-style="{ 'display': address.alertDisplay}" close="address.alertDisplay = 'none'">{{address.alertMessage}} </div>
+
+<form name="address.billingInfo" novalidate> 
+    <ul class="list-group">
+        <li class="list-group-item">
+            <label>Country</label>
+            <ui-select name="countries" ng-model="address.selectedCountry" ng-required="true">
+                <ui-select-match>
+                    <span ng-bind="$select.selected.CountryName"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="country in address.countries | filter: $select.search">
+                    <span ng-bind-html="country.CountryName | highlight: $select.search"></span>
+                </ui-select-choices>
+            </ui-select>
+        </li>
+        <li class="list-group-item"><label for="adress1">Address 1</label><input type="text" name="address1" ng-required="true" ng-model="address.address1" ></input></li>
+        <li class="list-group-item"><label for="adress1">Address 2</label><input type="text" name="address2" ng-model="address.address2"></input></li></li>
+        <li class="list-group-item"><label for="cardName">City</label><input type="text" name="city" ng-required="true" ng-model="address.city"></input></li>
+        
+            <ng-include src="address.getStateOption(selectedCountry)"></ng-include>
+    </ul>
+</form>
+<ul class="list-inline pull-right">
+    <li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="$state.go('payment.creditCard');">Prev</button></li>
+    <li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="address.validateCountry();">Next</button></li>
+    
+</ul>

@@ -1,0 +1,45 @@
+<div uib-alert ng-class="'alert-danger'" ng-style="{ 'display': creditCard.alertDisplay}" close="creditCard.alertDisplay = 'none'">{{creditCard.alertMessage}} </div>
+
+<form name="creditCard.creditCardInputs" novalidate >
+    <ul class="list-group">
+        <li class="list-group-item">
+            <label>Card Type  </label>
+            <ui-select ng-model="creditCard.cardOption" name="cardTypes" ng-required="true">
+                <ui-select-match>
+                    <span ng-bind="creditCard.getCardType($select.selected)"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="cardType in creditCard.creditCardTypes">
+                    <span ng-bind="creditCard.getCardType(cardType)"></span>
+                </ui-select-choices>
+            </ui-select>
+        </li>
+       <li class="list-group-item">
+            <label for="creditCardNumber">Card Number</label>
+            <input type="number" id="creditCardNumber" name="cardInput" ng-required="true" ng-maxlength="16" ng-minlength="16" ng-model="creditCard.cardNumber" ></input>
+        </li>
+        <li class="list-group-item" for="verificationNumber">
+            <label>Card Verification Number</label>
+            <input type="number" id="verificationNumber" name="verifNumber" ng-required="true" ng-maxlength="3" ng-minlength="3" ng-model="creditCard.cardVerifNumber"></input>
+        </li>
+        <li class="list-group-item" for="cardName">
+            <label>Name on Card</label>
+            <input type="text" id="cardName" name="cardName" ng-model="creditCard.cardName" ng-pattern="/^\b([A-Z]{1}[a-z]{1,30}[- ]{0,1}|[A-Z]{1}[- \']{1}[A-Z]{0,1}[a-z]{1,30}[- ]{0,1}|[a-z]{1,2}[ -\']{1}[A-Z]{1}[a-z]{1,30}){2,5}$/" ng-required="true"></input>
+        </li>
+        <li class="list-group-item">
+          <label for="exp">Expiration Date </label>
+          <input type="month" name="exp" class="form-control" uib-datepicker-popup ng-model="creditCard.cardExpDate" is-open="creditCard.dtpPopup.opened" datepicker-options="creditCard.dateOptions" ng-required="true" close-text="Close" style="width: 80%"/>
+          <span>
+            <button type="button" class="btn btn-default" ng-click="creditCard.openDTP()"><i class="glyphicon glyphicon-calendar" ></i></button>
+          </span>
+        </li>
+
+
+        <li class="list-group-item" for="Email"><label>Email Adress  </label><input type="email" id="Email" ng-model="creditCard.email"></input></li>
+    </ul>
+</form>
+
+<ul class="list-inline pull-right" >
+    <li><button type="button" class="btn btn-default" style="margin-top: 40px" ng-click="$state.go('payment.paymentType');">Prev</button></li>
+    <li><button type="button" class="btn btn-primary" style="margin-top: 40px" ng-click="creditCard.validateCardData();">Next</button></li>
+    
+</ul>

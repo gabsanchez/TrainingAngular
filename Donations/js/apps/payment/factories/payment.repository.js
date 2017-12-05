@@ -85,10 +85,10 @@ function paymentRepo($http, $q, MasterService){
 			}
 		})
 		.then(function (data) {
-			return data;
+			return data.data.Data;
 		})
 		.catch(function (err) {
-			return err;
+			return $q.reject(err);
 		});
 	};
 
@@ -111,7 +111,7 @@ function paymentRepo($http, $q, MasterService){
 			return data;
 		})
 		.catch(function (err) {
-			return err;
+			return $q.reject(err);
 		});
 	};
 

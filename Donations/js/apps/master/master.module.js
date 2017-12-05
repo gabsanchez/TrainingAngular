@@ -11,4 +11,5 @@ angular.module('Master',[
 	'angular-growl',
 	// child apps
 	'Login',
-	'Payment']);
+	'Payment',
+	'History']);

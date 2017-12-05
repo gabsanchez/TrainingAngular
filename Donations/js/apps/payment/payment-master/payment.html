@@ -4,19 +4,11 @@
     </div>
     <div class="cuerpo">
         <div class="wizard">
-            <uib-tabset active="payment.currentStep">
-                <uib-tab ng-repeat="tab in payment.tabs" index="tab.step" heading="{{tab.title}}" disable="true">
-
-                    <div uib-alert ng-class="'alert-' + payment.alertClass" ng-style="{ 'display': payment.alertDisplay}" close="payment.alertDisplay = 'none'">{{payment.alertMessage}} </div>
-                    
+            <uib-tabset active="payment.currentTab.value">
+                <uib-tab ng-repeat="tab in payment.tabs" index="tab.step - 1" heading="{{tab.title}}" disable="true">
                     <ui-view></ui-view>
                 </uib-tab>
-            </uib-tabset>
-            <ul class="list-inline pull-right" style="margin-top: 40px">
-                <li><button ng-disabled="payment.currentStep <= 1" type="button" class="btn btn-default" ng-click="payment.goToPrevState();">Prev</button></li>
-                <li><button ng-disabled="payment.currentStep >= payment.tabs.length" type="button" class="btn btn-default" ng-style="{'display': payment.displayFinish()}" ng-click="payment.goToNextState();">Next</button></li>
-                <li><button type="button" class="btn btn-primary" ng-style="{'display': payment.displayFinish()}" ng-click="payment.setPledge();">Send</button></li>                    
-            </ul>                        
+            </uib-tabset>                        
         </div>
     </div>
 </div>
