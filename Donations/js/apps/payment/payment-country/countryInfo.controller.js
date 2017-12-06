@@ -7,7 +7,17 @@ function addressController(countriesData, statesData, $state, PaymentService){
 
 	var vm = this;
 
-	
+	PaymentService.currentTab.value = 2;
+
+	vm.selectedCountry = PaymentService.donnationData.country;
+	vm.address1 = PaymentService.donnationData.address1;
+	vm.address2 = PaymentService.donnationData.address2;
+	vm.city = PaymentService.donnationData.city;
+	vm.state = PaymentService.donnationData.state;
+	vm.province = PaymentService.donnationData.province;
+	vm.zip1 = PaymentService.donnationData.zip1;
+	vm.zip2 = PaymentService.donnationData.zip2;
+	vm.postalCode = PaymentService.donnationData.postal;
 
 	vm.countries = countriesData;
 	vm.usStates = statesData;
@@ -56,6 +66,7 @@ function addressController(countriesData, statesData, $state, PaymentService){
 			vm.alertDisplay = 'block';
 		}
 		else{
+			PaymentService.setAddressInformation(vm.selectedCountry, vm.address1, vm.address2, vm.state, vm.province, vm.city, vm.zip1, vm.zip2, vm.postalCode)
 			PaymentService.currentTab.value = 3;
 			$state.go('payment.agency');
 			vm.alertDisplay = 'none';

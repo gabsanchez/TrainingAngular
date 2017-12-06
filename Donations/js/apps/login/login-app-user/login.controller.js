@@ -34,11 +34,11 @@ function loginController($state, LoginService, blockUI, growl){
 				$state.go('payment');
 			})
 			.catch(function(){
-				growl.error("Invalid credentials");
+				growl.error("Invalid credentials", {ttl: 5000});
 			});
 		}
 		else{
-			growl.error("Please fill all the fields");
+			growl.error("Please fill all the fields", {ttl: 5000});
 		}
 	}
 

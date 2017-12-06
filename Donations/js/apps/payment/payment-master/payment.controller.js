@@ -9,6 +9,7 @@ function paymentController(paymentData, agenciesData, $state, PaymentService){
 
 	PaymentService.paymentOptions = paymentData;
 	PaymentService.agenciesInformation = agenciesData;
+	PaymentService.donnationData = {charity: {}};
 
 	PaymentService.setTabs();
 

@@ -7,6 +7,10 @@ function agencyController($state, PaymentService){
 
 	var vm = this;
 
+	PaymentService.currentTab.value = 3;
+
+	vm.selectedCharity = PaymentService.getSelectedCharity();
+
 	PaymentService.getAgencies()
 	.then(function(data){
 		vm.agencies = data.Agencies;
@@ -17,17 +21,17 @@ function agencyController($state, PaymentService){
 	vm.alertDisplay = 'none';
 
 	function validateCharity(){
-		if(!vm.selectedCharityIndex){
+		if(!vm.selectedCharity){
 			vm.alertMessage =  "Please select a charity.";
 			vm.alertDisplay = 'block';
 		}
-		else if(vm.amount < vm.minDonation){
+		else if(PaymentService.paymentAmount < vm.minDonation){
 			vm.alertMessage = "You must donate at least " + vm.selectedCharity.MinimumDonation;
 			vm.alertDisplay = 'block';
 		
 		}
 		else{
-			vm.selectedCharity = vm.agencies[vm.selectedCharityIndex]
+			//vm.selectedCharity = vm.agencies[vm.selectedCharityIndex]
 			PaymentService.setCharity(vm.selectedCharity);
 			PaymentService.currentTab.value = 4;
 			$state.go('payment.preview');

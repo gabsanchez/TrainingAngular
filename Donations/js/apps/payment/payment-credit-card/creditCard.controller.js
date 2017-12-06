@@ -6,6 +6,15 @@ cardController.$inject = ['$state', 'PaymentService'];
 function cardController($state, PaymentService){
 	var vm = this;
 
+	PaymentService.currentTab.value = 1;
+
+	vm.cardOption = PaymentService.donnationData.cardType;
+	vm.cardNumber = PaymentService.donnationData.cardNumber;
+	vm.cardVerifNumber = PaymentService.donnationData.cardVerificationNumber;
+	vm.cardName = PaymentService.donnationData.cardName;
+	vm.cardExpDate = PaymentService.donnationData.cardExpirationDate;
+	vm.email = PaymentService.donnationData.email;
+
 	vm.creditCardTypes = PaymentService.paymentOptions.CreditCardTypeList;
 	vm.validateCardData = validateCardData;
 	vm.getCardType = getCardType;

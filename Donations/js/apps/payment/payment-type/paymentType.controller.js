@@ -7,6 +7,13 @@ function paymentTypeController($state, PaymentService){
 
 	var vm = this;
 
+	PaymentService.currentTab.value = 0;
+
+	//Initialize values
+	vm.amount = PaymentService.donnationData.paymentAmount;
+	vm.frequency = PaymentService.donnationData.paymentFrequency;
+
+	//Fetched information
 	vm.paymentTypeLabel = PaymentService.paymentOptions.PaymentTypeLabel;
 	vm.paymentInstructions = PaymentService.paymentOptions.PaymentInstructions;
 	vm.paymentQuestion = PaymentService.paymentOptions.PaymentQuestion;

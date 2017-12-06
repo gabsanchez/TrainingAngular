@@ -23,8 +23,9 @@ function paymentServ($q, PaymentRepository, AgenciesModel){
 		states: [],
 		agenciesInformation: {},
 
+		agenciesModel: new AgenciesModel(),
+
 		donnationData: {
-			address: {},
 			charity: {}
 		},
 		annualAmount: 0,
@@ -39,6 +40,7 @@ function paymentServ($q, PaymentRepository, AgenciesModel){
 		getCountries: getCountries,
 		getStates: getStates,
 		getAgencies: getAgencies,
+		getSelectedCharity: getSelectedCharity,
 		sendDonation: sendDonation,
 		getCurrentTab: getCurrentTab,
 
@@ -52,11 +54,12 @@ function paymentServ($q, PaymentRepository, AgenciesModel){
 		
 	};
 
-	//Agencies module
+	//Agencies model
 	
 
 	//Setters
 	function setTabs(){
+		this.tabs = [];
 		this.tabs.push({
 			state: 'payment.type',
 			step: 1,
@@ -98,19 +101,27 @@ function paymentServ($q, PaymentRepository, AgenciesModel){
 		this.donnationData.email = email;
 	};
 
-	function setAddressInformation(address){//countries form
-		this.donnationData.address = address;
+	function setAddressInformation(country, address1, address2, state, province, city, zip1, zip2, postal){//countries form
+		this.donnationData.country = country;
+		this.donnationData.address1 = address1;
+		this.donnationData.address2 = address2;
+		this.donnationData.state = state;
+		this.donnationData.province = province;
+		this.donnationData.city = city;
+		this.donnationData.zip1 = zip1;
+		this.donnationData.zip2 = zip2;
+		this.donnationData.postal = postal;
 	};
 
 	function setCharity(charity){
 		this.donnationData.charity = angular.copy(charity);
+		this.agenciesModel.setSelectedAgency(charity);
 	}
 
 	//Getters
 	function getPaymentOptions(){
 		return PaymentRepository.getPaymentOptions()
 		.then(function(data){
-			//this.paymentOptions = data;
 			return data;
 		});
 	};
@@ -130,19 +141,27 @@ function paymentServ($q, PaymentRepository, AgenciesModel){
 	};
 
 	function getAgencies(){
-		var agenciesModel = new AgenciesModel();
-		if(agenciesModel.data.PanelTitle && agenciesModel.data.Agencies){
-			return agenciesModel.getData();
+		var model = this.agenciesModel;
+		var promise;
+		if(model.data.PanelTitle && model.data.Agencies){
+			return $q.when(model.data.PanelTitle && model.data.Agencies)
+			.then(function(){
+				return model.getData();
+			});
 		}
 		else{
 			return PaymentRepository.getAgencies()
 			.then(function(data){
-				agenciesModel.setData(data);
-				return agenciesModel.getData();
+				model.setData(data);
+				return model.getData();
 			});
 		}
 		
 	};
+
+	function getSelectedCharity(){
+		return this.agenciesModel.getSelectedAgency();
+	}
 
 	function sendDonation(){
 
